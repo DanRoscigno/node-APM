@@ -6,7 +6,7 @@ const apm = require('elastic-apm-node').start()
 ```
 
 Here is the original code:
-Node-1.png
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/Node-1.png)
 
 and here is the modified code:
 Node-2.png
