@@ -9,13 +9,19 @@ Here is the original code:
 ![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/Node-1.png)
 
 and here is the modified code:
-Node-2.png
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/Node-2.png)
 
 Follow the instructions in Kibana Home -> Add APM, with a Kubernetes twist, as 
 instead of adding the APM details to the `.js` file pass in Kubernetes secrets.
 
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-1.png)
+
 For Kubernetes see the [advanced docs](https://www.elastic.co/guide/en/apm/agent/nodejs/3.x/express.html#express-advanced-configuration) as the APM serrver details should be passed in via Kubernetes secrets or environment variables.
 
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-2.png)
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-3.png)
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-4.png)
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-5.png)
 mkdir node-APM
 cd node-APM/
 vi package.json
