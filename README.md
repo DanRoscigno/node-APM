@@ -13,6 +13,9 @@ Here is the original code:
 and here is the modified code:
 ![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/Node-2.png)
 
+Follow the instructions in the [Node.js Guide](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/), and once you have the code working in a Docker container add the one line above to include the Elastic APM agent.
+
+## Get the APM details for your Elastic deployment
 Follow the instructions in Kibana Home -> Add APM, with a Kubernetes twist, as 
 instead of adding the APM details to the `.js` file pass in Kubernetes secrets.
 
@@ -31,12 +34,16 @@ The next block shows the APM details for your Elasticsearch Service in Elastic C
 
 ![APM details](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-3.png)
 
-Create a namespace for the app
+## Configure Kubernetes
+
+### Create a namespace for the app
 ```
 kubectl create -f namespace.yaml
 ```
 
-Copy each of these out of Kibana and use them to create a secret named apm-details as shown below:
+### Add a Kubernetes secret
+Copy each of these out of Kibana and use them to create a secret named apm-details as shown below (use your details):
+
 ```
 echo -n 'jbFLkVXglRlFWzrxaf' > ELASTIC_APM_SECRET_TOKEN
 
@@ -51,7 +58,10 @@ kubectl create secret generic apm-details \
   --namespace=express-demo
 ```
 
-Deploy the application
+## Update your Docker image and push to Docker Hub
+Because you added the Elastic APM agent rebuild your Docker image (just like you did earlier) and push to Docker Hub or your own repository.
+
+## Deploy the application
 
 Substitute your Docker image in the provided `node-express.yaml` file and run these commands.  You may need to edit the Service to expose an open port on your system or to use something other than a NodePort:
 
@@ -63,12 +73,12 @@ kubectl get pods -n express-demo
 kubectl logs express-demo-deployment-699b66866-r6b85 -n express-demo
 ```
 
-Generate traffic
+### Generate traffic
 ```
 curl http://localhost:31080
 curl http://localhost:31080/foo
 ```
 
-View APM:
+## View APM:
 
 ![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-5.png)
