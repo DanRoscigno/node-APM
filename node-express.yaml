@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: express-demo
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: express-demo-deployment
+  namespace: express-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: express-demo  
+    spec:
+      containers: 
+      - name: express-demo 
+        image: danroscigno/node-web-app
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ELASTIC_APM_SECRET_TOKEN
+          value: 'jbFLkVXglRlFWzrxaf'
+        - name: ELASTIC_APM_SERVER_URL
+          # Put the URL for the APM service here.
+          value: "https://c2198b9a492d42a1b4faab380227701f.apm.us-east4.gcp.elastic-cloud.com:443"
+        - name: ELASTIC_APM_SERVICE_NAME
+          # Name that will appear in the APM UI
+          value: "NodeExpress"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: express-demo-deployment
+  namespace: express-demo
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: 31080
+  selector:
+    app: express-demo
