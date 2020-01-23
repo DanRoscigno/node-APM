@@ -14,25 +14,21 @@ and here is the modified code:
 Follow the instructions in Kibana Home -> Add APM, with a Kubernetes twist, as 
 instead of adding the APM details to the `.js` file pass in Kubernetes secrets.
 
-![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-1.png)
+![Kibana Home > Add APM](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-1.png)
 
 For Kubernetes see the [advanced docs](https://www.elastic.co/guide/en/apm/agent/nodejs/3.x/express.html#express-advanced-configuration) as the APM serrver details should be passed in via Kubernetes secrets or environment variables.
 
-![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-2.png)
-![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-3.png)
-![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-4.png)
-![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-5.png)
-mkdir node-APM
-cd node-APM/
-vi package.json
-npm install
+In this example, the code is Node.jjs, so select Node.jjs, and run the `npm install` command as shown:
+![Select Language](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-2.png)
 
-npm install elastic-apm-node --save
+The next block shows the APM details for your Elasticsearch Service in Elastic Cloud.  Since this is a Kubernetes example, use a Kubernetes Secret rather than adding the details to your `.js` file.  There are three details needed:
 
-vi server.js
+ - serviceName
+ - secretToken
+ - serverUrl
 
-docker build -t danroscigno/node-web-app .
-docker push danroscigno/node-web-app:latest
+Copy each of these out and use them to create a secret named apm-details as shown below:
+![APM details](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-3.png)
 
 Create a namespace for the app
 ```
@@ -53,6 +49,21 @@ kubectl create secret generic apm-details \
   --from-file=./ELASTIC_APM_SERVICE_NAME \
   --namespace=express-demo
 ```
+
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-4.png)
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-5.png)
+mkdir node-APM
+cd node-APM/
+vi package.json
+npm install
+
+npm install elastic-apm-node --save
+
+vi server.js
+
+docker build -t danroscigno/node-web-app .
+docker push danroscigno/node-web-app:latest
+
 
 Deploy the application
 ```
