@@ -1,5 +1,7 @@
 # node-APM
 
+This is a very simple example, and is meant to show the method of including the Elastic APM Agent for Node.js in your application.  The application is a very basic getting started example, and does not involve any external datastore or other services, but it does illustrate the method for including the APM details in a Node.js app running in Kubernetes.
+
 For this example I took the [Dockerizing a Node.js web app](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/) guide and added one line to the sample code:
 ```
 const apm = require('elastic-apm-node').start()
@@ -18,7 +20,7 @@ instead of adding the APM details to the `.js` file pass in Kubernetes secrets.
 
 For Kubernetes see the [advanced docs](https://www.elastic.co/guide/en/apm/agent/nodejs/3.x/express.html#express-advanced-configuration) as the APM serrver details should be passed in via Kubernetes secrets or environment variables.
 
-In this example, the code is Node.jjs, so select Node.jjs, and run the `npm install` command as shown:
+In this example, the code is Node.js, so select Node.js, and run the `npm install elastic-apm-node --save` as shown:
 ![Select Language](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-2.png)
 
 The next block shows the APM details for your Elasticsearch Service in Elastic Cloud.  Since this is a Kubernetes example, use a Kubernetes Secret rather than adding the details to your `.js` file.  There are three details needed:
@@ -27,7 +29,6 @@ The next block shows the APM details for your Elasticsearch Service in Elastic C
  - secretToken
  - serverUrl
 
-Copy each of these out and use them to create a secret named apm-details as shown below:
 ![APM details](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-3.png)
 
 Create a namespace for the app
@@ -35,7 +36,7 @@ Create a namespace for the app
 kubectl create -f namespace.yaml
 ```
 
-Using the details from the above screenshot, create a Kubernetes secret:
+Copy each of these out of Kibana and use them to create a secret named apm-details as shown below:
 ```
 echo -n 'jbFLkVXglRlFWzrxaf' > ELASTIC_APM_SECRET_TOKEN
 
@@ -50,22 +51,10 @@ kubectl create secret generic apm-details \
   --namespace=express-demo
 ```
 
-![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-4.png)
-![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-5.png)
-mkdir node-APM
-cd node-APM/
-vi package.json
-npm install
-
-npm install elastic-apm-node --save
-
-vi server.js
-
-docker build -t danroscigno/node-web-app .
-docker push danroscigno/node-web-app:latest
-
-
 Deploy the application
+
+Substitute your Docker image in the provided `node-express.yaml` file and run these commands.  You may need to edit the Service to expose an open port on your system or to use something other than a NodePort:
+
 ```
 kubectl create -f node-express.yaml 
 
@@ -79,3 +68,7 @@ Generate traffic
 curl http://localhost:31080
 curl http://localhost:31080/foo
 ```
+
+View APM:
+
+![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-5.png)
