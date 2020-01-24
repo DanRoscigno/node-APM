@@ -77,6 +77,9 @@ kubectl get pods -n express-demo
 Check the logs for the pod returned above.
 
 ### Generate traffic
+
+The below commands are written for the port exposed in the sample `node-express.yaml`, if you exposed the deployment in a different manner adjust the commands.
+
 ```
 curl http://localhost:31080
 curl http://localhost:31080/foo
