@@ -13,7 +13,7 @@ Here is the original code:
 and here is the modified code:
 ![Original Code](https://github.com/DanRoscigno/node-APM/raw/master/images/Node-2.png)
 
-Follow the instructions in the [Node.js Guide](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/), and once you have the code working in a Docker container add the one line above to include the Elastic APM agent.
+Follow the instructions in the [Node.js Guide](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/), and once you have the code working in a Docker container then open Kibana and follow the instructions to instrument your application with Elastic APM.
 
 ## Get the APM details for your Elastic deployment
 Follow the instructions in Kibana Home -> Add APM, with a Kubernetes twist, as 
