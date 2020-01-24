@@ -26,11 +26,12 @@ In this example, the code is Node.js, so select Node.js, and run the `npm instal
 ![Select Language](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-2.png)
 
 The next block shows the APM details for your Elasticsearch Service in Elastic Cloud.  Since this is a Kubernetes example, use a Kubernetes Secret rather than adding the details to your `.js` file.  There are three details needed:
-These variables are described in the [advanced docs](https://www.elastic.co/guide/en/apm/agent/nodejs/3.x/express.html#express-advanced-configuration).  The docs are written for an environment where the variables would be set in the environment, and because this is a Kubernetes deployment use Kubernetes secrets to set them.
 
  - serviceName
  - secretToken
  - serverUrl
+
+These variables are described in the [advanced docs](https://www.elastic.co/guide/en/apm/agent/nodejs/3.x/express.html#express-advanced-configuration).  The docs are written for an environment where the variables would be set in the environment, and because this is a Kubernetes deployment use Kubernetes secrets to set them.
 
 ![APM details](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-3.png)
 
