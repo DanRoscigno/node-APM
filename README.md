@@ -35,6 +35,8 @@ These variables are described in the [advanced docs](https://www.elastic.co/guid
 
 ![APM details](https://github.com/DanRoscigno/node-APM/raw/master/images/APM-3.png)
 
+Copy the `serverUrl` and `secretToken`, and decide what the `serviceName` should be set to for your service.  You will use these in the next step.
+
 ## Configure Kubernetes
 
 ### Create a namespace for the app
@@ -70,9 +72,9 @@ Substitute your Docker image in the provided `node-express.yaml` file and run th
 kubectl create -f node-express.yaml 
 
 kubectl get pods -n express-demo
-
-kubectl logs express-demo-deployment-699b66866-r6b85 -n express-demo
 ```
+
+Check the logs for the pod returned above.
 
 ### Generate traffic
 ```
